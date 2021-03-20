@@ -48,6 +48,46 @@ def letra_a_numero(letra):
         return 14
     elif letra=="F": 
         return 15 
+def letra_valida(letra): 
+    valida=False 
+    if letra=='A':
+        valida=True
+    elif letra=='B':
+        valida=True
+    elif letra=='C':
+        valida=True
+    elif letra=='D':
+        valida=True
+    elif letra=='E':
+        valida=True
+    return valida
+
+
+def es_hexadecimal(numero):
+    """
+    recibimos un numero hexadecimal como cadena de caracteres
+    y verificamos que tenga letras o numeros, las letras deben
+    de estar entre la A y la F, los numeros no pueden ser menores
+    a 0,dado que solo usa digitos entre el 0 y el 9 
+
+
+    """ 
+    hexadecimal=True
+    for caracter in numero: 
+
+        if(caracter.isalpha()  ): 
+            if(letra_valida(caracter)==False):
+                hexadecimal=False
+                break
+        else:
+            if(caracter.isnumeric()==False): 
+                hexadecimal=False 
+                break 
+        
+
+    return hexadecimal
+        
+
 
 
 def decimal_hexadecimal(numero): 
@@ -115,6 +155,7 @@ def hexadecimal_decimal(hexadecimal):
     posicion=0
     #recorremos la lista y si encontramos letras pues lo volvemos entero
     for x in hexadecimal: 
+        print(x)
         if x.isalpha(): 
             aux.append(letra_a_numero(x)) 
         else: 
@@ -129,5 +170,4 @@ def hexadecimal_decimal(hexadecimal):
     return decimal
 
         
-
 
