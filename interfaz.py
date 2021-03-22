@@ -46,13 +46,58 @@ def separar_cadena(cadena):
         
             
 
-    return cadena_separada,vector_op
-def verificar_numeros(vector_op): 
+    return cadena_separada
+def verificar_numeros(cadena_sep): 
+    """
+    Esta funcion determina si los numeros cuentan con su respectivo
+    sistema numerico , en caso de que un numero no cuente con el 
+    sistema numerico indicado, señalara un error
+    en caso que los numeros se encuentren indicados correctamente 
+    esta funcion retornara : negativo para errores, numeros sin sistema,
+    lista con los tipos de sistemas encontrados
+
+    """
+    parent_inicial=0
+    parent_final=0
+    tipo=""
+    pos=0
+    tam=len(cadena_sep)
+    error=False
+    cadena=""
+    tipos_num=[]
+    while(pos<tam):
+        caena=cadena_sep[pos]
+        if(len(cadena)>1):
+            parent_inicial=cadena.find('(')
+            if(parent_inicial==-1):
+                error=True
+                break
+            else:
+                parent_final=cadena.find(')')
+                tipos_num.append(cadena[parent_inicial:parent_final])
+                cadena=list(cadena)
+                #eliminamos el tipo de numero de la cadena
+                for parent_inicial in range(parent_final+1): 
+                    cadena.pop(parent_inicial)
+                cadena=str(cadena)
+                cadena_sep[pos]=cadena
+        pos+=1
+    return error,cadena_sep,tipos_num
 
 
 
 def ejecutar_cadena(cadena):
-    cadena_separada,orden_operandos=separar_cadena(cadena)
+    if(cadena==""):
+        entrada_operacion.set("ERROR LOGICO")
+    else:
+        #indentacion
+        cadena_separada=separar_cadena(cadena)
+        error,cadena_separada,tipos_num=verificar_numeros(cadena_separada)
+        if(error):
+            entrada_operacion.set("ERROR LOGICO")
+
+    
+
     
 
 
@@ -76,7 +121,7 @@ def eventos(event):
     texto=event.widget.cget("text")
     if(texto=="="):
         #Ejecucion de operaciones
-        print("boton igual")
+        ejecutar_cadena(entrada_operacion.get())
     elif(texto=="AC"):
         #Limpiar entrada 
         limpiar_entrada()
@@ -92,7 +137,7 @@ def eventos(event):
 root=tk.Tk()
 root.title("Calculadora Sistemas Numericos")
 ventana=tk.Frame(root) 
-ventana.config(width=350,height=320,bg="purple")
+ventana.config(width=350,height=350,bg="purple")
 entrada_operacion=tk.StringVar()
 
 
@@ -107,106 +152,119 @@ btdec=tk.Button(ventana,text="(DEC)")
 btdec.bind('<Button-1>',eventos)
 btdec.place(x=20,y=100,width=80)
 
-bthex=tk.Button(root,text="(HEX)") 
+bthex=tk.Button(ventana,text="(HEX)") 
 bthex.bind('<Button-1>',eventos)
 bthex.place(x=100,y=100,width=80) 
 
-btoct=tk.Button(root,text="(OCT)") 
+btoct=tk.Button(ventana,text="(OCT)") 
 btoct.place(x=180,y=100,width=80)
 btoct.bind('<Button-1>',eventos)
 
-btbin=tk.Button(root,text="(BIN)") 
+btbin=tk.Button(ventana,text="(BIN)") 
 btbin.place(x=260,y=100,width=80)
 btbin.bind('<Button-1>',eventos) 
 #fin botones indicadores sistema numerico
 
 #inicio botones alfabeticos 
-bta=tk.Button(root,text="A") 
+bta=tk.Button(ventana,text="A") 
 bta.place(x=20,y=150,width=40)
 bta.bind('<Button-1>',eventos)
 
-btb=tk.Button(root,text="B") 
+btb=tk.Button(ventana,text="B") 
 btb.place(x=60,y=150,width=40)
 btb.bind('<Button-1>',eventos)
 
-btc=tk.Button(root,text="C") 
+btc=tk.Button(ventana,text="C") 
 btc.place(x=20,y=180,width=40)
 btc.bind('<Button-1>',eventos)
 
-btd=tk.Button(root,text="D") 
+btd=tk.Button(ventana,text="D") 
 btd.place(x=60,y=180,width=40)
 btd.bind('<Button-1>',eventos)
 
-bte=tk.Button(root,text="E") 
+bte=tk.Button(ventana,text="E") 
 bte.place(x=20,y=210,width=40)
 bte.bind('<Button-1>',eventos)
 
-btf=tk.Button(root,text="F") 
+btf=tk.Button(ventana,text="F") 
 btf.place(x=60,y=210,width=40)
 btf.bind('<Button-1>',eventos)
 #Fin botones alfabeticos  
 
 #Inicio botones numericos 
-bt1=tk.Button(root,text="1")
+bt1=tk.Button(ventana,text="1")
 bt1.place(x=110,y=150,width=40)
 bt1.bind('<Button-1>',eventos)
 
-bt2=tk.Button(root,text="2")
+bt2=tk.Button(ventana,text="2")
 bt2.place(x=150,y=150,width=40)
 bt2.bind('<Button-1>',eventos)
 
-bt3=tk.Button(root,text="3")
+bt3=tk.Button(ventana,text="3")
 bt3.place(x=190,y=150,width=40)
 bt3.bind('<Button-1>',eventos)
 #------------------------------
-bt4=tk.Button(root,text="4")
+bt4=tk.Button(ventana,text="4")
 bt4.place(x=110,y=180,width=40)
 bt4.bind('<Button-1>',eventos)
 
-bt5=tk.Button(root,text="5")
+bt5=tk.Button(ventana,text="5")
 bt5.place(x=150,y=180,width=40)
 bt5.bind('<Button-1>',eventos)
 
-bt6=tk.Button(root,text="6")
+bt6=tk.Button(ventana,text="6")
 bt6.place(x=190,y=180,width=40)
 bt6.bind('<Button-1>',eventos)
+
+bt7=tk.Button(ventana,text="7")
+bt7.place(x=110,y=210,width=40)
+bt7.bind('<Button-1>',eventos)
+
+bt8=tk.Button(ventana,text="8")
+bt8.place(x=150,y=210,width=40)
+bt8.bind('<Button-1>',eventos)
+
+bt9=tk.Button(ventana,text="9")
+bt9.place(x=190,y=210,width=40)
+bt9.bind('<Button-1>',eventos)
+
 #-------------------------------
-btdel=tk.Button(root,text="DEL")
-btdel.place(x=110,y=210,width=40)
+btdel=tk.Button(ventana,text="DEL")
+btdel.place(x=110,y=240,width=40)
 btdel.bind('<Button-1>',eventos)
 
-bt0=tk.Button(root,text="0")
-bt0.place(x=150,y=210,width=40)
+bt0=tk.Button(ventana,text="0")
+bt0.place(x=150,y=240,width=40)
 bt0.bind('<Button-1>',eventos)
 
-btac=tk.Button(root,text="AC")
-btac.place(x=190,y=210,width=40)
+btac=tk.Button(ventana,text="AC")
+btac.place(x=190,y=240,width=40)
 btac.bind('<Button-1>',eventos)
 #Fin botones numericos 
 
 #Inicio botones operacionales 
-btsum=tk.Button(root,text="+")
+btsum=tk.Button(ventana,text="+")
 btsum.place(x=240,y=150,width=40)
 btsum.bind('<Button-1>',eventos)
 
-btrest=tk.Button(root,text="-")
+btrest=tk.Button(ventana,text="-")
 btrest.place(x=280,y=150,width=40) 
 btrest.bind('<Button-1>',eventos)
 #---------------------
-btmult=tk.Button(root,text="*")
+btmult=tk.Button(ventana,text="*")
 btmult.place(x=240,y=180,width=40)
 btmult.bind('<Button-1>',eventos)
 
-btdiv=tk.Button(root,text="/")
+btdiv=tk.Button(ventana,text="/")
 btdiv.place(x=280,y=180,width=40)
 btdiv.bind('<Button-1>',eventos)
 
 #------------------------
-btpow=tk.Button(root,text="**")
+btpow=tk.Button(ventana,text="**")
 btpow.place(x=240,y=210,width=40)
 btpow.bind('<Button-1>',eventos)
 
-bteq=tk.Button(root,text="=")
+bteq=tk.Button(ventana,text="=")
 bteq.place(x=280,y=210,width=40)
 bteq.bind('<Button-1>',eventos)
 #Fin botones operacionales 
@@ -214,11 +272,11 @@ bteq.bind('<Button-1>',eventos)
 
 #Inicio botones adicionales
 
-btcreditos=tk.Button(root,text="Creditos")
-btcreditos.place(x=40,y=260,width=80)
+btcreditos=tk.Button(ventana,text="Creditos")
+btcreditos.place(x=40,y=290,width=80)
 
-btinstrucciones=tk.Button(root,text="Instrucciones") 
-btinstrucciones.place(x=200,y=260,width=100)
+btinstrucciones=tk.Button(ventana,text="Instrucciones") 
+btinstrucciones.place(x=200,y=290,width=100)
 
 #Fin botones adicionales
 
