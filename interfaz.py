@@ -9,6 +9,36 @@ tipo_resultado=""
 pos_par=0
 
 
+def ventana_creditos(): 
+    root=tk.Tk()
+    root.title("Creditos")
+    miframe=tk.Frame(root,width=400,height=300,bg="purple") 
+    lbtitulo=tk.Label(miframe,text="Presentado por:",bg="purple",font=('Helvetica',18,'bold'))
+    lbtitulo.place(x=100,y=25)
+    lbnombres=tk.Label(miframe,text="\nPaula Andrea Valencia Henao\n\nSofía Ocampo Gonzales\n\nCamila Muñoz perez\n",bg="purple",font=('Helvetica',18,'bold'))
+    lbnombres.place(x=40,y=50)
+
+
+    miframe.pack()
+    root.mainloop()
+
+
+def ventana_instrucciones(): 
+    root=tk.Tk()
+    root.title("Instrucciones")
+    miframe=tk.Frame(root,width=600,height=500,bg="purple") 
+    lbtitulo=tk.Label(miframe,text="\nInstrucciones De Uso\n\n1-Introduzca el numero deseado\n\n2-Indique el tipo de numero que ha introducido\n\n(DEC)->Decimal\n\n(OCT)->Octal\n\n(BIN)->Binario\n\n(HEX)->Hexadecimal\n\n3-Seleccione la operacion a efectuar\n\n4-Presione la tecla con el simbolo =\n\n5-Seleccione el tipo de numero que desea obtener como resultado\n\n6-Presione la tecla enter\n",bg="purple",font=('Helvetica',12,'bold'))
+    lbtitulo.place(x=40,y=25)
+    
+
+
+    miframe.pack()
+    root.mainloop()
+
+
+
+
+
 def registrar_entrada(caracter):
    
     aux=entrada_operacion.get() 
@@ -42,6 +72,10 @@ def eventos(event):
         pos_par=tipo_resultado.find('(')
         tipo_resultado=tipo_resultado[pos_par:] 
         entrada_operacion.set(lg.ejecutar_cadena(cadena_operacion,tipo_resultado))
+    elif(texto=="Creditos"):
+        ventana_creditos()
+    elif(texto=="Instrucciones"):
+        ventana_instrucciones()
 
         
     else:
@@ -196,12 +230,17 @@ btenter.bind('<Button-1>',eventos)
 
 btcreditos=tk.Button(ventana,text="Creditos")
 btcreditos.place(x=40,y=290,width=80)
+btcreditos.bind('<Button-1>',eventos)
 
 btinstrucciones=tk.Button(ventana,text="Instrucciones") 
 btinstrucciones.place(x=200,y=290,width=100)
+btinstrucciones.bind('<Button-1>',eventos)
 
 #Fin botones adicionales
 
 
 ventana.pack()
 root.mainloop()
+
+
+
