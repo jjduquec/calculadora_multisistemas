@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 import sys
-sys.path.append("./modulos/")
+sys.path.append("./modulos")
 from modulos import logica_interfaz as lg 
 
 cadena_operacion=""
