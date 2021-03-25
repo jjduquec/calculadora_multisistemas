@@ -41,6 +41,7 @@ def binario_decimal(numero):
 
     return decimal
 def decimal_binario(numero): 
+    numero=int(numero)
     """
     recibimos un numero entero 
     y realizamos divisiones sucesivas 

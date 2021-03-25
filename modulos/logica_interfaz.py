@@ -144,6 +144,7 @@ def ejecutar_cadena(cadena,tipo_resultado):
             return "ERROR LOGICO"
             
         else: 
+            
             return lg.ejecutar_logica(cadena_separada,tipos_num,tipo_resultado)
         
         """

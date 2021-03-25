@@ -1,6 +1,7 @@
 
 
 #cargamos los modulos de los sistemas para realizar las conversiones 
+import traceback
 import sys 
 sys.path.append("./modulos")
 
@@ -17,12 +18,7 @@ def convertir_decimal(numero,tipo):
 	al tipo indicado, si es correcto entonces  
 	se procede a la conversion de el tipo a decimal 
 	"""
-	"""
-		(BIN)
-		(HEX)
-		(OCT)
-		(DEC)
-	"""
+	
 	resultado=0
 	no_error=True #asumimos que el tipo de numero es correcto
 
@@ -44,7 +40,7 @@ def convertir_decimal(numero,tipo):
 		#verificamos el tipo 
 		no_error=oct.es_octal(numero)
 		if(no_error): 
-			resultado=oct.decimal_octal(numero)
+			resultado=oct.octal_decimal(numero)
 	elif(tipo=="(DEC)"): 
 		resultado=int(numero)
 	else:
@@ -53,21 +49,21 @@ def convertir_decimal(numero,tipo):
 	
 	return no_error,resultado
 		
-def convertir_tipo(numero,tipo):
+def convertir_decimal_tipo(numero,tipo):
 	resultado=0
 
 	if(tipo=="(BIN)"): 
 		
 		#verificamos el tipo 		
-		resultado=bn.decimal_binario(str(numero))
+		resultado=bn.decimal_binario(numero)
 	
 	elif(tipo=="(HEX)"): 
 		#verificamos el tipo 
-		resultado=hexa.hexadecimal_decimal(str(numero))
+		resultado=hexa.decimal_hexadecimal(numero)
 			
 	elif(tipo=="(OCT)"): 
 		#verificamos el tipo 		
-		resultado=oct.octal_decimal(str(numero))
+		resultado=oct.decimal_octal(numero)
 	elif(tipo=="(DEC)"): 
 		resultado=int(numero)
 
@@ -87,6 +83,8 @@ def convertir_tipo(numero,tipo):
 
 
 def ejecutar_logica(cadena_separada,tipos_num,tipo_resultado): 
+	
+	
 	try:
 		cadena_ejecutar=''
 		aux=''
@@ -128,10 +126,20 @@ def ejecutar_logica(cadena_separada,tipos_num,tipo_resultado):
 					no_error,cadena=convertir_decimal(cadena,tipos_num[pos_tipo])
 					cadena_ejecutar+=str(cadena)
 					pos_tipo+=1
-		resultado=eval(cadena_ejecutar)
-		resultado=convertir_tipo(resultado,tipo_resultado)
+		
+		resultado=int(eval(cadena_ejecutar))
+		
+		
+		resultado=convertir_decimal_tipo(resultado,tipo_resultado)
 		return resultado
-	except:
+	except Exception as e:
+		
+		resumen=traceback.StackSummary.extract(
+			traceback.walk_stack(None)
+
+
+		)
+		
 		return "Error Logico"
 
 
