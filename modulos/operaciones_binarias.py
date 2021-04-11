@@ -1,84 +1,96 @@
-def reglas_suma(a,b):
-    acarreo=0
-    resultado=0
-    if (a=="0" and b=="0"):
-        resultado="0" 
-    elif (a=="0" and b=="1"): 
-        resultado="1"
-    elif(a=="1" and b=="0"): 
-        resultado="1"
-    else:
-        resultado="0"
-        acarreo="1" 
-   
-    return acarreo,resultado
-def ordenar_cadena(vector):
-    """
-    concatena el contenido del vector en una cadena 
-
-    """
-    aux="" 
-    for elemento in vector: 
-        aux=aux+elemento
-    return aux
 
 
 class Binario:
     def __init__(self,numero): 
         self.numero=numero 
-    
     def __add__(self,otro):
-        pos_a=0
-        pos_b=0
-        a=0
-        b=0
-        resultado=[]
-        acarreo="0"
-        aux="0" 
+        a=self.numero
+        b=otro.numero
 
-        if(len(self.numero)>=len(otro.numero)): 
-            a=list(self.numero)
-            b=list(otro.numero)
-        else:
-            a=list(otro.numero)
-            b=list(self.numero)
+        if(len(a)>len(b)): 
+            b=b.zfill(len(a))
+        elif(len(a)<len(b)): 
+            a=a.zfill(len(b))
         
-        pos_a=len(a)-1
-        pos_b=len(b)-1
+        aux_resultado=""
+        resultado=""
+        acarreo='0'
+        for i in range(len(a)-1,-1,-1):
+            acarreo,aux_resultado=reglas_suma(a[i],b[i])
+            resultado=resultado+aux_resultado
+            if(acarreo=='1'):
+                resultado=resultado+'1'
+            
+        return resultado
 
-        while(pos_a>=0):
-           
-            if pos_b>=0:
-                if acarreo!=0:
-                    acarreo,aux=reglas_suma(acarreo,a[pos_a])
-                    a[pos_a]=aux
-                    acarreo,aux=reglas_suma(a[pos_a],b[pos_b])
-                    resultado.append(aux)
+
+    def __truediv__(self,otro): 
+        resultado='0'
+        residuo='' 
+        aux=""
+        a=self.numero
+        b=otro.numero 
+
+        if int(a)<int(b): 
+            resultado='0'
+            residuo=a
+
+        if int(a)>int(b): 
+            aux=a[0:len(b)]
+            for i in range(len(a)-len(b)+1):
+                if int(aux)>=int(b): 
+                    resultado=resultado+'1'
+                    aux=self-otro
                 else:
-                    acarreo,aux=reglas_suma(a[pos_a],b[pos_b])
-                    resultado.append(aux)
-            else:
-                acarreo,aux=reglas_suma(acarreo,a[pos_a])
-                resultado.append(aux)
-            pos_a=pos_a-1
-            pos_b=pos_b-1 
+                    resultado=resultado+'0'
+                    residuo=aux
+                if i+len(b)<len(a):
+                    aux=aux+a[i+len(b)]
+        if a==b:
+            resultado=='1'
+        return resultado
+                
         
+
+
         
+            
         
+
+
         
-        resultado.reverse()        
-        
-        
-        return ordenar_cadena(resultado)
+            
+
+
+
 
 
         
         
     
     def __str__(self): 
+        #metodo usado para imprimir los numeros binarios
         return str(self.numero)
 
+def reglas_suma(a,b):
+   
 
-a=Binario("0010")
-b=Binario("0110") 
-print(a+b)
+    acarreo='0'
+    resultado='0'
+    if (a=="0" and b=="0"):
+        resultado="0" 
+    elif (a=="0" and b=="1"): 
+        resultado="1"
+    elif(a=="1" and b=="0"): 
+        resultado="1"
+    elif(a=="1" and b=="1"):
+        resultado="0"
+        acarreo="1"
+
+   
+    return acarreo,resultado 
+
+
+
+
+
