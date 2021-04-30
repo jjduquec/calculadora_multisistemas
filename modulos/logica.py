@@ -9,7 +9,7 @@ import binarios as bn
 import octal as oct 
 import hexadecimal as hexa 
 from logica_interfaz import *
-from operaciones_binarias import *
+
 
 
 def convertir_decimal(numero,tipo): 
