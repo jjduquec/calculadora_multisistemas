@@ -9,6 +9,7 @@ import binarios as bn
 import octal as oct 
 import hexadecimal as hexa 
 from logica_interfaz import *
+from operaciones_binarias import *
 
 
 def convertir_decimal(numero,tipo): 
@@ -83,9 +84,15 @@ def convertir_decimal_tipo(numero,tipo):
 
 
 def ejecutar_logica(cadena_separada,tipos_num,tipo_resultado): 
+	"""
+	funcion encargada de ejecutar las operaciones indicadas
+	por el usuario
+
+	"""
 	
 	
 	try:
+		cadena_bin=''
 		cadena_ejecutar=''
 		aux=''
 		pos_potencia=0
@@ -97,6 +104,7 @@ def ejecutar_logica(cadena_separada,tipos_num,tipo_resultado):
 		resultado=0
 		for cadena in cadena_separada:
 			tam_cadena=len(cadena)
+			#determinamos con que tipo de caracter estamos tratando
 			if(tam_cadena==1 and (cadena.isalpha()==False and cadena.isnumeric()==False)):
 				# quiere decir que es un simbolo de operacion 
 				cadena_ejecutar+=cadena

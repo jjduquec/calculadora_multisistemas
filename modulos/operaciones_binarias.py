@@ -23,6 +23,24 @@ class Binario:
             
         return resultado
 
+    def __sub__(self,otro): 
+        a=self.numero
+        b=otro.numero
+        b=complemento_dos(b)
+        return a+b
+
+
+    def __mul__(self,otro):
+        resultado=""
+        aux='0'
+        a=self.numero
+        b=otro.numero
+        for i in range(len(a)):
+            if a[i]=='1':
+                resultado=self.numero+Binario(aux)
+
+
+
 
     def __truediv__(self,otro): 
         resultado='0'
@@ -49,24 +67,7 @@ class Binario:
         if a==b:
             resultado=='1'
         return resultado
-                
-        
-
-
-        
-            
-        
-
-
-        
-            
-
-
-
-
-
-        
-        
+                        
     
     def __str__(self): 
         #metodo usado para imprimir los numeros binarios
@@ -89,6 +90,24 @@ def reglas_suma(a,b):
 
    
     return acarreo,resultado 
+
+def complemento_dos(numero):
+    aux=""
+    for caracter in numero: 
+        if caracter=='1':
+            aux+='0'
+        elif caracter=='0':
+            aux+='1'
+    numero=Binario(aux)
+    b=Binario('1')
+    return numero+b
+
+
+"10101111+1000011-11*1110000111"
+a=Binario("101010")
+b=Binario("10101")
+
+print(a+b)
 
 
 
